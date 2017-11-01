@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<h1>Formulario para agregar un color</h1>	
+	
+	<hr>
+	{{ form_start(form)}}
+		{{ form_widget (form) }}
+		<input type="submit" name="save" value="Guardar">
+	{{ form_end(form) }}		
+	<p>
+		<a href="{{path('color_index')}}">Cancelar</a>
+	</p>
+{% endblock %}		

@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	Formulario para modificar un color
+	<hr>
+		{{ form_start(form)}}
+		{{ form_widget (form) }}
+		<input type="submit" name="save" value="Guardar">
+	{{ form_end(form) }}
+
+	<p>
+		<a href="{{path('color_index')}}">Cancelar</a>		
+	</p>
+	<p>
+		{{ form_start(formDelete)}}
+		{{ form_widget (formDelete) }}
+			<input type="submit" name="delete" value="Borrar">
+		{{ form_end(formDelete) }}
+	</p>
+{% endblock %}		

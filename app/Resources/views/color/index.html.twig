@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<h1>ABM de colores</h1>
+	<hr>
+
+	{% for message in app.flashes('notice') %}
+	    <div class="alert alert-notice">
+	        {{ message }}
+	    </div>
+	{% endfor %}
+	
+	<hr>
+	<table class="table">
+		<tr>
+			<th>#</th>
+			<td>Nombre</td>
+			<td>Acciones</td>
+		</tr>
+		{% for color in colores %}
+			<tr>
+				<td>{{ color.id }}</td>
+				<td>{{ color.nombre }}</td>
+				<td>
+					<a href="{{ path('color_edit', {'id': color.id }) }}" class="btn btn-primary">Editar</a>
+										
+				</td>
+			</tr>
+		{% endfor %}		
+	</table>
+
+	<p>
+		<a href="{{ path ('color_new')}}"> Agregar</a>
+	</p>
+{% endblock  %}
