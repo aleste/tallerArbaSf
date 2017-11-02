@@ -76,14 +76,15 @@ class Cerveza
     /**
      * @var string
      *
-     * @ORM\Column(name="foto", type="text")
+     * @ORM\Column(name="foto", type="text", nullable=true)
      */
     private $foto;
 
     /**
     * @ORM\Column(name="destacada", type="boolean")
     */
-    private $descada;
+    private $destacada;
+    
 
     /**
      * Get id
@@ -288,26 +289,26 @@ class Cerveza
     }
 
     /**
-     * Set descada
+     * Set destacada
      *
-     * @param boolean $descada
+     * @param boolean $destacada
      *
      * @return Cerveza
      */
-    public function setDescada($descada)
+    public function setDestacada($destacada)
     {
-        $this->descada = $descada;
+        $this->destacada = $destacada;
 
         return $this;
     }
 
     /**
-     * Get descada
+     * Get destacada
      *
      * @return boolean
      */
-    public function getDescada()
+    public function getDestacada()
     {
-        return $this->descada;
+        return $this->destacada;
     }
 }

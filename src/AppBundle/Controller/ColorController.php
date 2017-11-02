@@ -20,6 +20,7 @@ class ColorController extends Controller
     public function indexAction(Request $request)
     {
         
+    
         $em = $this->getDoctrine()->getManager();
         $colores = $em->getRepository('AppBundle:Color')->findAll();
 

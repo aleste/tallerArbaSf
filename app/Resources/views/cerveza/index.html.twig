@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Catálogo de Cervezas</h1>
+    {% include 'flashes.html.twig' %}
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Descripcion</th>
+                <th>Alcohol</th>
+                <th>Precio</th>
+                <th>Foto</th>
+                <th>Descada</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for cerveza in cervezas %}
+            <tr>
+                <td><a href="{{ path('catalogo_cerveza_show', { 'id': cerveza.id }) }}">{{ cerveza.id }}</a></td>
+                <td>{{ cerveza.nombre }}</td>
+                <td>{{ cerveza.descripcion }}</td>
+                <td>{{ cerveza.alcohol }}</td>
+                <td>{{ cerveza.precio }}</td>
+                <td>{{ cerveza.foto }}</td>
+                <td>{% if cerveza.destacada %}Yes{% else %}No{% endif %}</td>
+                <td>                    
+                    <a href="{{ path('catalogo_cerveza_show', { 'id': cerveza.id }) }}" class="btn btn-default">Mostrar</a>            
+                    <a href="{{ path('catalogo_cerveza_edit', { 'id': cerveza.id }) }}" class="btn btn-primary">Editar</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+            <a href="{{ path('catalogo_cerveza_new') }}" class="btn btn-primary">Nueva cerveza</a>
+        
+{% endblock %}

@@ -1,17 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-	<h1>ABM de colores</h1>
-	<hr>
-
-	{% for message in app.flashes('notice') %}
-	    <div class="alert alert-notice">
-	        {{ message }}
-	    </div>
-	{% endfor %}
-	
-	<hr>
-	<table class="table">
+	<h1>Colores</h1>
+	{% include 'flashes.html.twig' %}
+    <table class="table table-bordered">
 		<tr>
 			<th>#</th>
 			<td>Nombre</td>
@@ -23,7 +15,6 @@
 				<td>{{ color.nombre }}</td>
 				<td>
 					<a href="{{ path('color_edit', {'id': color.id }) }}" class="btn btn-primary">Editar</a>
-										
 				</td>
 			</tr>
 		{% endfor %}		

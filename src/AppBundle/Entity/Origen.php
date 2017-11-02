@@ -28,6 +28,13 @@ class Origen
      */
     private $nombre;
 
+    /**
+    * Métogo mágico PHP para representar un objeto como un texto
+    */
+    public function __toString()
+    {
+        return $this->nombre;
+    }
 
     /**
      * Get id

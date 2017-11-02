@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Cerveza</h1>
+
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ cerveza.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ cerveza.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Descripcion</th>
+                <td>{{ cerveza.descripcion }}</td>
+            </tr>
+            <tr>
+                <th>Alcohol</th>
+                <td>{{ cerveza.alcohol }}</td>
+            </tr>
+            <tr>
+                <th>Precio</th>
+                <td>{{ cerveza.precio }}</td>
+            </tr>
+            <tr>
+                <th>Foto</th>
+                <td>{{ cerveza.foto }}</td>
+            </tr>
+            <tr>
+                <th>Descada</th>
+                <td>{% if cerveza.destacada %}Yes{% else %}No{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    
+            <a href="{{ path('catalogo_cerveza_index') }}" class="btn btn-default">Volver</a>
+    
+            <a href="{{ path('catalogo_cerveza_edit', { 'id': cerveza.id }) }}" class="btn btn-primary">Editar</a>
+            <br><br>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Borrar" class="btn btn-danger">
+            {{ form_end(delete_form) }}
+    
+{% endblock %}
