@@ -5,19 +5,21 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Cerveza;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Cerveza controller.
  *
- * @Route("catalogo/cerveza")
+ * @Route("catalogo/cervezas")
  */
 class CervezaController extends Controller
 {
     /**
      * Lists all cerveza entities.
      *
-     * @Route("/", name="catalogo_cerveza_index")
+     * @Route("/", name="cerveza_index")
      * @Method("GET")
      */
     public function indexAction()
@@ -34,7 +36,7 @@ class CervezaController extends Controller
     /**
      * Creates a new cerveza entity.
      *
-     * @Route("/new", name="catalogo_cerveza_new")
+     * @Route("/new", name="cerveza_new")
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request)
@@ -44,11 +46,34 @@ class CervezaController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $formFiles = $request->files;
+            if(!is_null($formFiles->get('appbundle_cerveza')['foto'])){
+              // $file guarda la imagen
+              $file = $cerveza->getFoto();
+              // Genera un nombre unico antes de guardar
+              $fileName = sha1(uniqid()).'.'.$file->guessExtension();
+              // Mueve el erchivo al directorio uploads
+              $file->move(
+                  $this->getParameter('upload_dir'),
+                  $fileName
+              );
+
+              // Actualiza la propiedad Foto con el nuevo nombre del archivo
+              $cerveza->setFoto($fileName);
+
+            }
+
+            $this->addFlash(
+                'notice',
+                'Cerveza creada con éxito.'
+            );
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($cerveza);
             $em->flush();
 
-            return $this->redirectToRoute('catalogo_cerveza_show', array('id' => $cerveza->getId()));
+            return $this->redirectToRoute('cerveza_index', array('id' => $cerveza->getId()));
         }
 
         return $this->render('cerveza/new.html.twig', array(
@@ -60,7 +85,7 @@ class CervezaController extends Controller
     /**
      * Finds and displays a cerveza entity.
      *
-     * @Route("/{id}", name="catalogo_cerveza_show")
+     * @Route("/{id}", name="cerveza_show")
      * @Method("GET")
      */
     public function showAction(Cerveza $cerveza)
@@ -76,19 +101,49 @@ class CervezaController extends Controller
     /**
      * Displays a form to edit an existing cerveza entity.
      *
-     * @Route("/{id}/edit", name="catalogo_cerveza_edit")
+     * @Route("/{id}/edit", name="cerveza_edit")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Cerveza $cerveza)
     {
-        $deleteForm = $this->createDeleteForm($cerveza);
+
+        
+        $deleteForm = $this->createDeleteForm($cerveza);            
         $editForm = $this->createForm('AppBundle\Form\CervezaType', $cerveza);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-            $this->addFlash('notice', 'Datos guardados correctamente!');
-            return $this->redirectToRoute('catalogo_cerveza_index', array('id' => $cerveza->getId()));
+        
+          $formFiles = $request->files;
+
+          if(isset($formFiles->get('appbundle_cerveza')['foto'])){
+            // $file guarda la imagen             
+            $file = $cerveza->getFoto();             
+
+            // Genera un nombre unico antes de guardar
+            $fileName = sha1(uniqid()).'.'.$file->guessExtension();
+
+             //Elimina foto anterior
+            // unlink($this->getParameter('upload_dir').$cerveza->getFoto());
+
+             // Mueve el erchivo al directorio uploads
+             $file->move(
+                 $this->getParameter('upload_dir'),
+                 $fileName
+             );
+
+                $cerveza->setFoto($fileName);        
+            }
+
+            $this->addFlash(
+                'notice',
+                'Cerveza actualizada con éxito.'
+            );
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($cerveza);
+            $em->flush();            
+
+            return $this->redirectToRoute('cerveza_index');
         }
 
         return $this->render('cerveza/edit.html.twig', array(
@@ -101,7 +156,7 @@ class CervezaController extends Controller
     /**
      * Deletes a cerveza entity.
      *
-     * @Route("/{id}", name="catalogo_cerveza_delete")
+     * @Route("/{id}", name="cerveza_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Cerveza $cerveza)
@@ -111,12 +166,16 @@ class CervezaController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $this->addFlash(
+                'notice',
+                'Cerveza eliminada con éxito.'
+            );
+
             $em->remove($cerveza);
             $em->flush();
-            $this->addFlash('notice', 'Datos eliminados correctamente!');
         }
 
-        return $this->redirectToRoute('catalogo_cerveza_index');
+        return $this->redirectToRoute('cerveza_index');
     }
 
     /**
@@ -129,7 +188,7 @@ class CervezaController extends Controller
     private function createDeleteForm(Cerveza $cerveza)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('catalogo_cerveza_delete', array('id' => $cerveza->getId())))
+            ->setAction($this->generateUrl('cerveza_delete', array('id' => $cerveza->getId())))
             ->setMethod('DELETE')
             ->getForm()
         ;

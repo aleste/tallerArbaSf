@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Estilos list</h1>
-
-    <table>
+    <h1>Estilos de Cerveza</h1>
+    {% include 'flashes.html.twig' %}
+    <table class="table table-bordered">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Nombre</th>
-                <th>Actions</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -17,23 +17,12 @@
                 <td><a href="{{ path('catalogo_estilo_show', { 'id': estilo.id }) }}">{{ estilo.id }}</a></td>
                 <td>{{ estilo.nombre }}</td>
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('catalogo_estilo_show', { 'id': estilo.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('catalogo_estilo_edit', { 'id': estilo.id }) }}">edit</a>
-                        </li>
-                    </ul>
+                    <a href="{{ path('catalogo_estilo_show', { 'id': estilo.id }) }}" class="btn btn-default">Mostrar</a>
+                    <a href="{{ path('catalogo_estilo_edit', { 'id': estilo.id }) }}" class="btn btn-primary">Editar</a>                
                 </td>
             </tr>
         {% endfor %}
         </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('catalogo_estilo_new') }}">Create a new estilo</a>
-        </li>
-    </ul>
+    </table>    
+        <a href="{{ path('catalogo_estilo_new') }}" class="btn btn-primary">Agregar Estilo</a>        
 {% endblock %}

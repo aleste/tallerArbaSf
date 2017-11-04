@@ -10,7 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
 /**
  * Estilo controller.
  *
- * @Route("catalogo/estilo")
+ * @Route("catalogo/estilos")
  */
 class EstiloController extends Controller
 {
@@ -47,8 +47,8 @@ class EstiloController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($estilo);
             $em->flush();
-
-            return $this->redirectToRoute('catalogo_estilo_show', array('id' => $estilo->getId()));
+            $this->addFlash('notice', 'Datos guardados correctamente!');
+            return $this->redirectToRoute('catalogo_estilo_index', array('id' => $estilo->getId()));
         }
 
         return $this->render('estilo/new.html.twig', array(
@@ -87,8 +87,8 @@ class EstiloController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('catalogo_estilo_edit', array('id' => $estilo->getId()));
+            $this->addFlash('notice', 'Datos guardados correctamente!');
+            return $this->redirectToRoute('catalogo_estilo_index', array('id' => $estilo->getId()));
         }
 
         return $this->render('estilo/edit.html.twig', array(

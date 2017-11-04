@@ -3,7 +3,7 @@
 {% block body %}
     <h1>Estilo</h1>
 
-    <table>
+    <table class="table table-bordered">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -16,17 +16,11 @@
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('catalogo_estilo_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('catalogo_estilo_edit', { 'id': estilo.id }) }}">Edit</a>
-        </li>
-        <li>
+        <a href="{{ path('catalogo_estilo_index') }}" class="btn btn-default">Volver</a>
+        <a href="{{ path('catalogo_estilo_edit', { 'id': estilo.id }) }}" class="btn btn-primary">Editar</a>  
+        <p>
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+                <input type="submit" value="Borrar" class="btn btn-danger">
+            {{ form_end(delete_form) }}        
+        </p>      
 {% endblock %}

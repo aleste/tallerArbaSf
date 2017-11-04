@@ -1,20 +1,28 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-	Formulario para modificar un color
-	<hr>
-		{{ form_start(form)}}
-		{{ form_widget (form) }}
-		<input type="submit" name="save" value="Guardar">
-	{{ form_end(form) }}
+    <h1>Editar Cerveza</h1>    
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-body">                
+					{{ form_start(form)}}
+					   <div class="form-group col-xs-6">
+                            <label>{{ form_label(form.nombre) }}</label>                    
+                            {{ form_widget(form.nombre, {'attr' : {'class' : 'form-control'} }) }}    
+                        </div>
 
-	<p>
-		<a href="{{path('color_index')}}">Cancelar</a>		
-	</p>
-	<p>
-		{{ form_start(formDelete)}}
-		{{ form_widget (formDelete) }}
-			<input type="submit" name="delete" value="Borrar">
-		{{ form_end(formDelete) }}
-	</p>
+                </div>
+
+                <div class="panel-footer">
+                    <input type="submit" value="Guardar" class="btn btn-primary" />
+                    {{ form_end(form) }}
+                    
+                    <a href="{{ path('color_index') }} " class="btn btn-default">Volver</a>
+                    <br><br>
+                    {{ form_start(formDelete) }}
+                        <input type="submit" value="Borrar" class="btn btn-danger">
+                    {{ form_end(formDelete) }}
+                </div>
+                        
 {% endblock %}		

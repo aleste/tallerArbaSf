@@ -1,64 +1,64 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}    
-    <h1>Editar Cerveza</h1>    
+{% block body %}
+    <h1>Editar Cerveza</h1>
     <div class="row">
         <div class="col-xs-12">
             <div class="panel panel-default">
-                <div class="panel-body">
+                <div class="panel-body">                  
                     {{ form_start(edit_form) }}
-
+<div>{{form_errors(edit_form)}}</div>
                         <div class="form-group col-xs-6">
                             <label>{{ form_label(edit_form.nombre) }}</label>                    
                             {{ form_widget(edit_form.nombre, {'attr' : {'class' : 'form-control'} }) }}    
-                        </div>
-                        <div class="form-group col-xs-6">
-                            <label>{{ form_label(edit_form.color) }}</label>
-                            {{ form_widget(edit_form.color, {'attr' : {'class' : 'form-control'} }) }}    
-                        </div>                
+                        </div>  
 
-                        <div class="form-group col-xs-6">
-                            <label>{{ form_label(edit_form.estilo) }}</label>
-                            {{ form_widget(edit_form.estilo, {'attr' : {'class' : 'form-control'} }) }}    
-                        </div>     
-                        <div class="form-group col-xs-6">
-                            <label>{{ form_label(edit_form.origen) }}</label>
-                            {{ form_widget(edit_form.origen, {'attr' : {'class' : 'form-control'} }) }}    
+                        <div class="form-group col-xs-3">
+                            <label>{{ form_label(edit_form.alcohol) }}</label>                    
+                            {{ form_widget(edit_form.alcohol, {'attr' : {'class' : 'form-control'} }) }}    
+                        </div> 
+                        <div class="form-group col-xs-3">
+                            <label>{{ form_label(edit_form.precio) }}</label>                    
+                            {{ form_widget(edit_form.precio, {'attr' : {'class' : 'form-control'} }) }}    
                         </div>    
                         <div class="form-group col-xs-6">
-                            <label>{{ form_label(edit_form.alcohol) }}</label>
-                            {{ form_widget(edit_form.alcohol, {'attr' : {'class' : 'form-control'} }) }}    
-                        </div>
-
+                            <label>{{ form_label(edit_form.origen) }}</label>                    
+                            {{ form_widget(edit_form.origen, {'attr' : {'class' : 'form-control'} }) }}    
+                        </div> 
                         <div class="form-group col-xs-6">
-                            <label>{{ form_label(edit_form.precio) }}</label>
-                            {{ form_widget(edit_form.precio, {'attr' : {'class' : 'form-control'} }) }}    
-                        </div>              
-
+                            <label>{{ form_label(edit_form.estilo) }}</label>                    
+                            {{ form_widget(edit_form.estilo, {'attr' : {'class' : 'form-control'} }) }}    
+                        </div>    
                         <div class="form-group col-xs-6">
-                            <label>{{ form_label(edit_form.descripcion) }}</label>
-                            {{ form_widget(edit_form.descripcion, {'attr' : {'class' : 'form-control'} }) }}    
-                        </div>     
-
+                            <label>{{ form_label(edit_form.color) }}</label>                    
+                            {{ form_widget(edit_form.color, {'attr' : {'class' : 'form-control'} }) }}    
+                        </div>                                                                         
                         <div class="form-group col-xs-6">
-                            <label>{{ form_label(edit_form.destacada) }}</label>
+                            <label>{{ form_label(edit_form.foto) }}</label>                    
+                            {{ form_widget(edit_form.foto, {'attr' : {'class' : 'form-control'} }) }}    
+                        </div> 
+                        <div class="form-group col-xs-6">
+                            <label>{{ form_label(edit_form.destacada) }}</label>                    
                             {{ form_widget(edit_form.destacada, {'attr' : {'class' : 'form-control'} }) }}    
-                        </div>                             
-  
-                </div>
+                        </div> 
 
-                <div class="panel-footer">
+                        <div class="form-group col-xs-6">
+                            <label>{{ form_label(edit_form.descripcion) }}</label>                    
+                            {{ form_widget(edit_form.descripcion, {'attr' : {'class' : 'form-control'} }) }}    
+                        </div> 
+                                            
+                </div>
+                <div class="panel-footer">                    
                     <input type="submit" value="Guardar" class="btn btn-primary" />
                     {{ form_end(edit_form) }}
-                    
-                    <a href="{{ path('catalogo_cerveza_index') }} " class="btn btn-default">Volver</a>
+                    <a href="{{ path('cerveza_index') }} " class="btn btn-default">Volver</a>
                     <br><br>
                     {{ form_start(delete_form) }}
                         <input type="submit" value="Borrar" class="btn btn-danger">
                     {{ form_end(delete_form) }}
                 </div>
-
             </div>
         </div>
-    </div>    
+    </div>
+
 {% endblock %}

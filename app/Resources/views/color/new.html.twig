@@ -1,14 +1,25 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-	<h1>Formulario para agregar un color</h1>	
-	
-	<hr>
-	{{ form_start(form)}}
-		{{ form_widget (form) }}
-		<input type="submit" name="save" value="Guardar">
-	{{ form_end(form) }}		
-	<p>
-		<a href="{{path('color_index')}}">Cancelar</a>
-	</p>
+	<h1>Agregar Color</h1>		
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">        
+	            <div class="panel-body">
+	            	{{ form_start(form) }}
+	            	    <div class="form-group col-xs-6">
+	                        <label>{{ form_label(form.nombre) }}</label>                    
+	                        {{ form_widget(form.nombre, {'attr' : {'class' : 'form-control'} }) }}    
+	                    </div>  
+				</div>
+	            <div class="panel-footer">
+	                <input type="submit" value="Guardar" class="btn btn-primary" />
+	                {{ form_end(form) }}
+	                
+	                <a href="{{ path('color_index') }}" class="btn btn-default">Volver</a>
+	            </div>
+        	</div>
+        </div>
+    </div>
+           
 {% endblock %}		

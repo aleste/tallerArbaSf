@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Cerveza
@@ -41,7 +42,7 @@ class Cerveza
      * @ORM\ManyToOne(targetEntity="Origen")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="origen_id", referencedColumnName="id", nullable=true)
-     * })  
+     * })
      */
     private $origen;
 
@@ -74,9 +75,8 @@ class Cerveza
     private $precio;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="foto", type="text", nullable=true)
+     * @ORM\Column(type="string", nullable=true)     
+     * @Assert\File(mimeTypes={ "image/jpeg", "image/png" })
      */
     private $foto;
 
@@ -84,7 +84,7 @@ class Cerveza
     * @ORM\Column(name="destacada", type="boolean")
     */
     private $destacada;
-    
+
 
     /**
      * Get id
@@ -240,29 +240,6 @@ class Cerveza
         return $this->precio;
     }
 
-    /**
-     * Set foto
-     *
-     * @param string $foto
-     *
-     * @return Cerveza
-     */
-    public function setFoto($foto)
-    {
-        $this->foto = $foto;
-
-        return $this;
-    }
-
-    /**
-     * Get foto
-     *
-     * @return string
-     */
-    public function getFoto()
-    {
-        return $this->foto;
-    }
 
     /**
      * Set nombre
@@ -310,5 +287,29 @@ class Cerveza
     public function getDestacada()
     {
         return $this->destacada;
+    }
+
+    /**
+     * Set foto
+     *
+     * @param string $foto
+     *
+     * @return Cerveza
+     */
+    public function setFoto($foto)
+    {
+        $this->foto = $foto;
+
+        return $this;
+    }
+
+    /**
+     * Get foto
+     *
+     * @return string
+     */
+    public function getFoto()
+    {
+        return $this->foto;
     }
 }

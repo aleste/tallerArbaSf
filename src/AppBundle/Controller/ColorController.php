@@ -15,7 +15,7 @@ use AppBundle\Form\ColorType;
 class ColorController extends Controller
 {
     /**
-     * @Route("/catalogo/color", name="color_index")
+     * @Route("/catalogo/colores", name="color_index")
      */
     public function indexAction(Request $request)
     {

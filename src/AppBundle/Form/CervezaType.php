@@ -5,6 +5,8 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class CervezaType extends AbstractType
 {
@@ -14,16 +16,26 @@ class CervezaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('nombre')
-                ->add('descripcion')
-                ->add('alcohol')
-                ->add('precio')
-                //->add('foto')
-                ->add('destacada')
-                ->add('origen')
-                ->add('estilo')
-                ->add('color');
+          ->add('descripcion', TextareaType::class, array(
+              'label' => 'Descripción',
+              'attr' => array(
+                  'class' => 'form-control',
+                  'cols' => 90,
+                  'rows' => 5,
+                  'placeholder' => 'Descripción',
+                  'pattern'     => '.{3,}' //minlength
+              )))
+          ->add('alcohol')
+          ->add('precio')
+          ->add('foto', FileType::class, array('label' => 'Imágen (JPG/PNG)',
+                                          "data_class" => null,
+                                          "required" => false))
+          ->add('destacada')
+          ->add('origen')
+          ->add('estilo')
+          ->add('color');
     }
-    
+
     /**
      * {@inheritdoc}
      */

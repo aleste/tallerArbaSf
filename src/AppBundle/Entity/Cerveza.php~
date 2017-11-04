@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Cerveza
@@ -74,9 +75,9 @@ class Cerveza
     private $precio;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="foto", type="text", nullable=true)
+     * @ORM\Column(type="string")
+     * @Assert\NotBlank(message="Por favor ingrese una imágen válida.")
+     * @Assert\File(mimeTypes={ "image/png" })
      */
     private $foto;
 
@@ -240,29 +241,6 @@ class Cerveza
         return $this->precio;
     }
 
-    /**
-     * Set foto
-     *
-     * @param string $foto
-     *
-     * @return Cerveza
-     */
-    public function setFoto($foto)
-    {
-        $this->foto = $foto;
-
-        return $this;
-    }
-
-    /**
-     * Get foto
-     *
-     * @return string
-     */
-    public function getFoto()
-    {
-        return $this->foto;
-    }
 
     /**
      * Set nombre

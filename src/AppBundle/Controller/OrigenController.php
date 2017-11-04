@@ -10,7 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
 /**
  * Origen controller.
  *
- * @Route("catalogo/origen")
+ * @Route("catalogo/origenes")
  */
 class OrigenController extends Controller
 {
@@ -47,8 +47,8 @@ class OrigenController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($origen);
             $em->flush();
-
-            return $this->redirectToRoute('origen_show', array('id' => $origen->getId()));
+            $this->addFlash('notice', "Datos guardados correctamente!");
+            return $this->redirectToRoute('origen_index', array('id' => $origen->getId()));
         }
 
         return $this->render('origen/new.html.twig', array(
@@ -87,8 +87,8 @@ class OrigenController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('origen_edit', array('id' => $origen->getId()));
+            $this->addFlash('notice', "Datos guardados correctamente!");
+            return $this->redirectToRoute('origen_index', array('id' => $origen->getId()));
         }
 
         return $this->render('origen/edit.html.twig', array(

@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Origen</h1>
+    <h1>Orígen</h1>
 
-    <table>
+    <table class="table table-bordered">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -16,17 +16,11 @@
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('origen_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('origen_edit', { 'id': origen.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    <a href="{{ path('origen_index') }}" class="btn btn-default">Volver</a>
+    <a href="{{ path('origen_edit', { 'id': origen.id }) }}" class="btn btn-primary">Editar</a>
+
+    {{ form_start(delete_form) }}
+        <input type="submit" value="Borrar" class="btn btn-danger">
+    {{ form_end(delete_form) }}
+
 {% endblock %}
