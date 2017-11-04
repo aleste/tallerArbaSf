@@ -8,18 +8,19 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * Cerveza controller.
- *
- * @Route("catalogo/cervezas")
+ * 
  */
 class CervezaController extends Controller
 {
     /**
      * Lists all cerveza entities.
      *
-     * @Route("/", name="cerveza_index")
+     * @Route("catalogo/cervezas", name="cerveza_index")
      * @Method("GET")
      */
     public function indexAction()
@@ -36,7 +37,7 @@ class CervezaController extends Controller
     /**
      * Creates a new cerveza entity.
      *
-     * @Route("/new", name="cerveza_new")
+     * @Route("catalogo/cervezas/new", name="cerveza_new")
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request)
@@ -85,7 +86,7 @@ class CervezaController extends Controller
     /**
      * Finds and displays a cerveza entity.
      *
-     * @Route("/{id}", name="cerveza_show")
+     * @Route("catalogo/cervezas/{id}", name="cerveza_show")
      * @Method("GET")
      */
     public function showAction(Cerveza $cerveza)
@@ -101,7 +102,7 @@ class CervezaController extends Controller
     /**
      * Displays a form to edit an existing cerveza entity.
      *
-     * @Route("/{id}/edit", name="cerveza_edit")
+     * @Route("catalogo/cervezas/{id}/edit", name="cerveza_edit")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Cerveza $cerveza)
@@ -110,6 +111,9 @@ class CervezaController extends Controller
         
         $deleteForm = $this->createDeleteForm($cerveza);            
         $editForm = $this->createForm('AppBundle\Form\CervezaType', $cerveza);
+
+    
+
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -117,14 +121,12 @@ class CervezaController extends Controller
           $formFiles = $request->files;
 
           if(isset($formFiles->get('appbundle_cerveza')['foto'])){
+
             // $file guarda la imagen             
             $file = $cerveza->getFoto();             
 
             // Genera un nombre unico antes de guardar
             $fileName = sha1(uniqid()).'.'.$file->guessExtension();
-
-             //Elimina foto anterior
-            // unlink($this->getParameter('upload_dir').$cerveza->getFoto());
 
              // Mueve el erchivo al directorio uploads
              $file->move(
@@ -133,6 +135,8 @@ class CervezaController extends Controller
              );
 
                 $cerveza->setFoto($fileName);        
+            }else{
+               
             }
 
             $this->addFlash(
@@ -156,7 +160,7 @@ class CervezaController extends Controller
     /**
      * Deletes a cerveza entity.
      *
-     * @Route("/{id}", name="cerveza_delete")
+     * @Route("catalogo/cervezas/{id}", name="cerveza_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Cerveza $cerveza)
@@ -193,4 +197,17 @@ class CervezaController extends Controller
             ->getForm()
         ;
     }
+
+    /**
+    * @Route("catalogo/all", options={"expose"=true}, name="cervezas_get_all")
+    */
+    public function getCervezasAjax(SerializerInterface $serializer)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $cervezas = $em->getRepository('AppBundle:Cerveza')->findAll();
+        $cervezasTojson = $serializer->serialize($cervezas, 'json');     
+        
+        return new JsonResponse($cervezasTojson);
+
+    }    
 }

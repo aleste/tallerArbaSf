@@ -26,6 +26,7 @@ class Cerveza
      * @var string
      *
      * @ORM\Column(name="nombre", type="string", length=50)
+     * @Assert\NotBlank(message="Por favor comple el nombre")
      */
     private $nombre;
 
@@ -33,6 +34,7 @@ class Cerveza
      * @var string
      *
      * @ORM\Column(name="descripcion", type="text")
+     * @Assert\NotBlank()
      */
     private $descripcion;
 
@@ -75,7 +77,7 @@ class Cerveza
     private $precio;
 
     /**
-     * @ORM\Column(type="string", nullable=true)     
+     * @ORM\Column(type="string")     
      * @Assert\File(mimeTypes={ "image/jpeg", "image/png" })
      */
     private $foto;
@@ -84,6 +86,11 @@ class Cerveza
     * @ORM\Column(name="destacada", type="boolean")
     */
     private $destacada;
+
+    /**
+    * @ORM\Column(name="presentacion", type="string")
+    */
+    private $presentacion;    
 
 
     /**
@@ -311,5 +318,29 @@ class Cerveza
     public function getFoto()
     {
         return $this->foto;
+    }
+
+    /**
+     * Set presentacion
+     *
+     * @param string $presentacion
+     *
+     * @return Cerveza
+     */
+    public function setPresentacion($presentacion)
+    {
+        $this->presentacion = $presentacion;
+
+        return $this;
+    }
+
+    /**
+     * Get presentacion
+     *
+     * @return string
+     */
+    public function getPresentacion()
+    {
+        return $this->presentacion;
     }
 }

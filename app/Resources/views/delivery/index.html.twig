@@ -2,8 +2,7 @@
 
 {% block header %}{% endblock  %}		
 	
-{% block body %}	
-
+{% block body %}	  
     {# Section banner #}
     <section class="jumbotron text-center">
         <div class="container">        
@@ -20,17 +19,16 @@
             <div class="col-xs-7">      		          
                 {# Row Select Cerveza #}
                 <div class="row">
-                    <div class="col-xs-12">
-                        <select name="selectCerveza" id="selectCerveza" onchange="cervezas.select();">
-                            <option value="0">Seleccione una cerveza...</option>      								
-          					{# {% for cerveza in cervezas %}
-          						<option value="1">{{ cerveza }}</option>      								
-          					{% endfor %} #}
+                    <div class="col-xs-8">
+                        <select name="selectCerveza" id="selectCerveza" onchange="cervezas.select();" class="form-control">
+                            <option value="0">Elegí una cerveza...</option>          					
                         </select>
+                        <br>
                     </div>
+
                 </div>
 
-			{# Row datos Cerveza #}
+			       {# Row datos Cerveza #}
           		<div class="row">
           			<div class="col-xs-8">      				                    
                         <table class="table table-bordered">					

@@ -3,23 +3,25 @@ const cervezas = {
 		this.opt = opt;		
 	},
 	load () {
-		const select = this.opt.selectCerveza;	 		
-		$.getJSON("./assets/js/cervezas.json", (data) => {			
-			let items = [];
-  			$.each( data, function( key, val ) {  				
-  				select.append(`<option value="${key}"
-  									   data-id="${key}"
-  									   data-nombre="${val.nombre}"
-  									   data-origen="${val.origen}"
-  									   data-estilo="${val.estilo}"
-  									   data-color="${val.color}"
-  									   data-punit="${val.punit}"  									   
-  									   data-presentacion="${val.presentacion}"
-  									   data-descripcion="${val.descripcion}"  									   
-  									   data-img="${val.img}" 
-  									   >${val.nombre}</option>`);		    			
-  			});				
-		});
+		const select = this.opt.selectCerveza;	 	
+		$.ajax({
+  			url: Routing.generate('cervezas_get_all'),  			
+		})
+  		.done((data) => {  	  			
+  			let items = [];
+  			$.each(JSON.parse(data), (key, cerveza) => {  			
+  				select.append(`<option value="${cerveza.id}"
+  									   data-id="${cerveza.id}"
+  									   data-nombre="${cerveza.nombre}"
+  									   data-origen="${cerveza.origen.nombre}"
+  									   data-estilo="${cerveza.estilo.nombre}"
+  									   data-color="${cerveza.color.nombre}"
+  									   data-punit="${cerveza.precio}"  									   
+  									   data-presentacion="${cerveza.presentacion}"
+  									   data-descripcion="${cerveza.descripcion}"  									   
+  									   data-img="${cerveza.foto}">${cerveza.nombre}</option>`);
+  			})  		
+  		});
 
 	},
 	select () {
@@ -43,11 +45,10 @@ const cervezas = {
 		this.opt.spanPUnit.html(punit);
 		this.opt.spanPresentacion.html(presentacion);
 		this.opt.spanDescripcion.html(descripcion);
-		this.opt.imgBeer.attr('src', './assets/img/'+img);
+		this.opt.imgBeer.attr('src', './assets/img/uploads/'+img);
 		
 	},
 	add () {	
-
 
 		const select   = this.opt.selectCerveza;		
 		const option   = select.find(':selected');	

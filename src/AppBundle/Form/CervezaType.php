@@ -21,18 +21,18 @@ class CervezaType extends AbstractType
               'attr' => array(
                   'class' => 'form-control',
                   'cols' => 90,
-                  'rows' => 5,
-                  'placeholder' => 'Descripción',
-                  'pattern'     => '.{3,}' //minlength
+                  'rows' => 4,
+                  'placeholder' => 'Descripción'
               )))
           ->add('alcohol')
           ->add('precio')
           ->add('foto', FileType::class, array('label' => 'Imágen (JPG/PNG)',
                                           "data_class" => null,
-                                          "required" => false))
+                                          "required" => true))
           ->add('destacada')
           ->add('origen')
           ->add('estilo')
+          ->add('presentacion')
           ->add('color');
     }
 

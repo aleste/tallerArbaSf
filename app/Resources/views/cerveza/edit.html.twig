@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-body">                  
                     {{ form_start(edit_form) }}
-<div>{{form_errors(edit_form)}}</div>
+
                         <div class="form-group col-xs-6">
                             <label>{{ form_label(edit_form.nombre) }}</label>                    
                             {{ form_widget(edit_form.nombre, {'attr' : {'class' : 'form-control'} }) }}    
@@ -37,7 +37,11 @@
                             <label>{{ form_label(edit_form.foto) }}</label>                    
                             {{ form_widget(edit_form.foto, {'attr' : {'class' : 'form-control'} }) }}    
                         </div> 
-                        <div class="form-group col-xs-6">
+                        <div class="form-group col-xs-3">
+                            <label>{{ form_label(edit_form.presentacion) }}</label>                    
+                            {{ form_widget(edit_form.presentacion, {'attr' : {'class' : 'form-control'} }) }}    
+                        </div>                        
+                        <div class="form-group col-xs-3">
                             <label>{{ form_label(edit_form.destacada) }}</label>                    
                             {{ form_widget(edit_form.destacada, {'attr' : {'class' : 'form-control'} }) }}    
                         </div> 

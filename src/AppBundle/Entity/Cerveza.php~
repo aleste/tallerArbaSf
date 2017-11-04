@@ -26,6 +26,7 @@ class Cerveza
      * @var string
      *
      * @ORM\Column(name="nombre", type="string", length=50)
+     * @Assert\NotBlank(message="Por favor comple el nombre")
      */
     private $nombre;
 
@@ -33,6 +34,7 @@ class Cerveza
      * @var string
      *
      * @ORM\Column(name="descripcion", type="text")
+     * @Assert\NotBlank()
      */
     private $descripcion;
 
@@ -42,7 +44,7 @@ class Cerveza
      * @ORM\ManyToOne(targetEntity="Origen")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="origen_id", referencedColumnName="id", nullable=true)
-     * })  
+     * })
      */
     private $origen;
 
@@ -75,9 +77,8 @@ class Cerveza
     private $precio;
 
     /**
-     * @ORM\Column(type="string")
-     * @Assert\NotBlank(message="Por favor ingrese una imágen válida.")
-     * @Assert\File(mimeTypes={ "image/png" })
+     * @ORM\Column(type="string")     
+     * @Assert\File(mimeTypes={ "image/jpeg", "image/png" })
      */
     private $foto;
 
@@ -85,7 +86,12 @@ class Cerveza
     * @ORM\Column(name="destacada", type="boolean")
     */
     private $destacada;
-    
+
+    /**
+    * @ORM\Column(name="presentacion", type="string")
+    */
+    private $presentacion;    
+
 
     /**
      * Get id
@@ -288,5 +294,29 @@ class Cerveza
     public function getDestacada()
     {
         return $this->destacada;
+    }
+
+    /**
+     * Set foto
+     *
+     * @param string $foto
+     *
+     * @return Cerveza
+     */
+    public function setFoto($foto)
+    {
+        $this->foto = $foto;
+
+        return $this;
+    }
+
+    /**
+     * Get foto
+     *
+     * @return string
+     */
+    public function getFoto()
+    {
+        return $this->foto;
     }
 }
